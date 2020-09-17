@@ -116,7 +116,7 @@ class User implements UserInterface
 
     public function isAdmin()
     {
-        return in_array('ROLE_ADMIN', $this->role);
+        return 'ROLE_ADMIN' === $this->role;
     }
 
     public function eraseCredentials()
