@@ -13,7 +13,7 @@ class SecurityControllerTest extends AbstractTestController
     public function testAccessLogin()
     {
         $this->client->request('GET', "/login");
-        $this->assertResponseStatusCodeSame(200);
+        $this->assertResponseIsSuccessful();
     }
 
 

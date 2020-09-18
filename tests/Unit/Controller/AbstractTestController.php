@@ -7,8 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AbstractTestController extends WebTestCase
 {
-    const USERS = ['user', 'admin', ''];
-    
+    const USERS = ['user', 'admin'];
+
     protected $client;
     protected $logUtils;
     protected $entityManager;
