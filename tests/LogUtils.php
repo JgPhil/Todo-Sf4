@@ -8,39 +8,46 @@ use Symfony\Component\BrowserKit\Cookie;
 
 class LogUtils
 {
-    private $client;
-    
+	const FIREWALL =  'main';
+	private $client;
+	private $entityManager;
+	private $session;
 
 	public function __construct($client)
 	{
 		$this->client = $client;
+		$this->entityManager = $this->client->getContainer()->get('doctrine')->getManager();
+		$this->session = $this->client->getContainer()->get('session');
+		
 	}
 
 	public function login($type)
 	{
+
+		if (empty($type)) { // anonymous user
+			return;
+		}
+
+		[$credentials, $user] = $this->getUser($type);
+
+		
+		$token = new UsernamePasswordToken($user, $credentials['password'], self::FIREWALL, $user->getRoles());
+
+		$this->session->set('_security_' . self::FIREWALL, serialize($token));
+		$this->session->save();
+		$cookie = new Cookie($this->session->getName(), $this->session->getId());
+		$this->client->getCookieJar()->set($cookie);
+	}
+	
+
+	private function getUser($type)
+	{
 		$credentials = ['username' => $type, 'password' => $type];
-
-		// get doctrine
-		$entityManager = $this->client->getContainer()
-			->get('doctrine')
-			->getManager();
-
-		// get a user from database
-		$user = $entityManager
+		$user = $this->entityManager
 			->getRepository(User::class)
 			->findOneBy([
 				'username' => $credentials['username']
 			]);
-
-		$session = $this->client->getContainer()->get('session');
-
-		$firewall = 'main';
-		$token = new UsernamePasswordToken($user, $credentials['password'], $firewall, $user->getRoles());
-
-		$session->set('_security_' . $firewall, serialize($token));
-		$session->save();
-
-		$cookie = new Cookie($session->getName(), $session->getId());
-		$this->client->getCookieJar()->set($cookie);
+		return [$credentials, $user];
 	}
 }

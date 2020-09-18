@@ -10,22 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class HomeControllerTest extends AbstractTestController
 {
 
-    public function testAccessTaskListPageAdmin()
+    public function testAccessTaskListPage()
     {
-        $this->logUtils->login('admin');
-        $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful();
+        foreach (self::USERS  as $type) {
+            if ($type !== '') {
+                $this->logUtils->login($type);
+                $this->client->request('GET', '/');
+                $this->assertResponseIsSuccessful();
+            }
+        }
     }
 
-    public function testAccessTaskListPageUser()
+    public function testAccessTaskListPageAnonymous()
     {
-        $this->logUtils->login('user');
-        $this->client->request('GET', '/');
-        $this->assertResponseIsSuccessful();
-    }
-
-    public function testAccessTaskListPageUnauthenticated()
-    {
+        $this->logUtils->login(self::USERS[2]);
         $this->client->request('GET', '/');
         $this->assertResponseStatusCodeSame(302);
     }
