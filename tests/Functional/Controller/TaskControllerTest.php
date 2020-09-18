@@ -1,30 +1,24 @@
 <?php
 
-namespace App\Tests\Unit\Controller;
-
-use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+namespace App\Tests\Functional\Controller;
 
 
-class TaskControllerTest extends WebTestCase
+use App\Tests\AbstractWebTestCaseClass;
+
+
+class TaskTest extends AbstractWebTestCaseClass
 {
-    private $client;
-    private $user;
-    private $idCreatedTask;
-    private $entityManager;
-    private $userRepository;
-
-    public function setUp(): void
+    public function testcreateTaskAction()
     {
-        $this->client = static::createClient();
+        $this->logUtils->login(self::USERS[1]);
 
-        $this->entityManager = $this->client->getContainer()
-            ->get('doctrine')
-            ->getManager();
+        $crawler = $this->client->request('GET', '/');
+
+        /* $link = $crawler->filter('a[href="/tasks/create"]')->link()->getUri(); */
+        $crawler = $this->client->clickLink('Créer une nouvelle tâche');
+        $button = $crawler->filter('button')->text();
+        $this->assertStringContainsString("Ajouter", $button);
     }
 
-    public function testAccessTaskList()
-    {
-        $this->client->loginUser($this->user);
-    }
+    
 }
