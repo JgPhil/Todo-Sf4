@@ -56,14 +56,8 @@ class UserTest extends WebTestCase
         $this->assertEquals($this->user->isAdmin(), 1);
     }
 
-    public function testAddTask()
-    {
-        $task = new Task();
-        $this->user->addTask($task);
-        $this->assertEquals($task, $this->user->getTasks()[0]) ;
-    }
 
-    public function testRemoveTask()
+    public function testAddAndRemoveTask()
     {
         $task = new Task();
         $this->user->addTask($task);
@@ -71,4 +65,6 @@ class UserTest extends WebTestCase
         $this->user->removeTask($task);
         $this->assertEquals([], $this->user->getTasks()->toArray());
     }
+
+    
 }
