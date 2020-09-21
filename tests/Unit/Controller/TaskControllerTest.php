@@ -22,4 +22,5 @@ class TaskControllerTest extends AbstractWebTestCaseClass
         $this->client->request('GET', '/tasks');
         $this->assertResponseStatusCodeSame(302);
     }
+
 }
