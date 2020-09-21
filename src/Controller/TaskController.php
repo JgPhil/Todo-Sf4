@@ -30,7 +30,7 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $task->setUser($this->getUser());
+            $task->setUser($this->getUser()); // Improvement
             $em->persist($task);
             $em->flush();
 
@@ -85,7 +85,7 @@ class TaskController extends AbstractController
     public function deleteTaskAction(Task $task, EntityManagerInterface $em)
     {
         
-        if ($task->getUser() === $this->getUser() || $this->getUser()->getRole() === 'ROLE_ADMIN') {
+        if ($task->getUser() === $this->getUser() || $this->getUser()->getRole() === 'ROLE_ADMIN') { // improvement
             $em->remove($task);
             $em->flush();
 
