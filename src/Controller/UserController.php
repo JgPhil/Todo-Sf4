@@ -17,6 +17,11 @@ class UserController extends AbstractController
      */
     public function listAction()
     {
+        if ($this->getUser()->getRole() !== 'ROLE_ADMIN')
+        {
+            $this->addFlash('error', 'Veuillez vous connecter');
+            return $this->redirectToRoute('login');
+        }
         return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]);
     }
 
