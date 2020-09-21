@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests\Unit\Controller;
+namespace App\Tests;
 
 use App\Tests\LogUtils;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AbstractTestController extends WebTestCase
+class AbstractWebTestCaseClass extends WebTestCase
 {
     const USERS = ['user', 'admin'];
 
@@ -18,5 +18,10 @@ class AbstractTestController extends WebTestCase
         $this->client = static::createClient();
         $this->logUtils = new LogUtils($this->client);
         $this->entityManager = $this->client->getContainer()->get('doctrine')->getManager();
+    }
+
+    public function testAvoidWarnings()
+    {
+        $this->assertNotEquals(1,2);
     }
 }

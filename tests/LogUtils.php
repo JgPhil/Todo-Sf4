@@ -30,7 +30,6 @@ class LogUtils
 
 		[$credentials, $user] = $this->getUser($type);
 
-		
 		$token = new UsernamePasswordToken($user, $credentials['password'], self::FIREWALL, $user->getRoles());
 
 		$this->session->set('_security_' . self::FIREWALL, serialize($token));

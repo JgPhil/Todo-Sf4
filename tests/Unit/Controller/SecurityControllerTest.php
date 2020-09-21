@@ -2,12 +2,10 @@
 
 namespace App\Tests\Unit\Controller;
 
-use App\Tests\LogUtils;
-use App\Tests\Unit\Controller\DefaultController;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\AbstractWebTestCaseClass;
 
 
-class SecurityControllerTest extends AbstractTestController
+class SecurityControllerTest extends AbstractWebTestCaseClass
 {
 
     public function testAccessLogin()

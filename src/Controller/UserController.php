@@ -51,21 +51,27 @@ class UserController extends AbstractController
      */
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $form = $this->createForm(UserType::class, $user);
+        if ($this->getUser() === $user || $this->getUser() === 'ROLE_ADMIN') {
+            $form = $this->createForm(UserType::class, $user);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+                $user->setPassword($password);
 
-            $this->getDoctrine()->getManager()->flush();
+                $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', "L'utilisateur a bien été modifié");
+                $this->addFlash('success', "L'utilisateur a bien été modifié");
+
+                return $this->redirectToRoute('user_list');
+            }
+
+            return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        } else {
+            $this->addFlash('error', ' Vous n\'avez pas accès à ce profil');
 
             return $this->redirectToRoute('user_list');
         }
-
-        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 }
