@@ -12,7 +12,7 @@ class SecurityControllerTest extends AbstractWebTestCaseClass
         $this->client->request('GET', '/'); //homepage
         $this->client->clickLink('Se déconnecter'); 
         $this->assertTrue($this->client->getResponse()->isRedirect()); 
-        $this->client->followRedirect();
+        $this->client->followRedirect(); // login page
         $this->assertSelectorTextContains('button', 'Se connecter');
     }
 }
