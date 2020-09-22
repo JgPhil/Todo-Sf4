@@ -9,13 +9,35 @@ use App\Tests\AbstractWebTestCaseClass;
 
 class TaskTest extends AbstractWebTestCaseClass
 {
-    public function testcreateTaskAction()
+    public function testcreateTaskRedirection()
     {
         $this->logUtils->login(self::USERS[rand(0, 1)]); // USERS defined in AbstractWebTestCaseClass
         $this->client->request('GET', '/');
         $crawler = $this->client->clickLink('Créer une nouvelle tâche');
         $button = $crawler->filter('button')->text();
         $this->assertStringContainsString("Ajouter", $button);
+    }
+
+    public function testcreateTaskAction()
+    {
+        $this->logUtils->login(self::USERS[rand(0, 1)]); // USERS defined in AbstractWebTestCaseClass
+        $this->client->request('GET', '/');
+        $crawler = $this->client->clickLink('Créer une nouvelle tâche');
+        $createTaskForm = $crawler->selectButton('Ajouter')->form();
+        $createTaskForm['task[title]'] = 'titre bidon';
+        $createTaskForm['task[content]'] = 'description bidon';
+
+        $crawler = $this->client->submit($createTaskForm);
+        $crawler = $this->client->followRedirect();
+
+        $task = $this->entityManager
+            ->getRepository(Task::class)
+            ->findOneBy(['title' => 'titre bidon']);
+
+        $this->assertSame(1, $crawler->filter('div.alert.alert-success')->count());
+        $this->assertNotNull($task);
+        $this->entityManager->remove($task);
+        $this->entityManager->flush();
     }
 
     public function testEditTaskRedirection()
@@ -83,7 +105,7 @@ class TaskTest extends AbstractWebTestCaseClass
 
         $crawler = $this->client->followRedirect();
 
-        $successMessage = $crawler->filter('div.alert.alert-success')->text();
+        $successMessage = $crawler->filter('div.alert.alert-success')->text(null, true);
 
         $task = $this->entityManager
             ->getRepository(Task::class)

@@ -17,6 +17,11 @@ class UserController extends AbstractController
      */
     public function listAction()
     {
+        if ($this->getUser()->getRole() !== 'ROLE_ADMIN')
+        {
+            $this->addFlash('error', 'Veuillez vous connecter');
+            return $this->redirectToRoute('login');
+        }
         return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]);
     }
 
@@ -51,7 +56,7 @@ class UserController extends AbstractController
      */
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        if ($this->getUser() === $user || $this->getUser() === 'ROLE_ADMIN') {
+        if ($this->getUser() === $user || $this->getUser()->getRole() === 'ROLE_ADMIN') {
             $form = $this->createForm(UserType::class, $user);
 
             $form->handleRequest($request);

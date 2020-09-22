@@ -4,6 +4,7 @@ namespace App\Tests;
 
 use App\Tests\LogUtils;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 
 class AbstractWebTestCaseClass extends WebTestCase
 {
@@ -22,6 +23,6 @@ class AbstractWebTestCaseClass extends WebTestCase
 
     public function testAvoidWarnings()
     {
-        $this->assertNotEquals(1,2);
+        $this->assertNotEquals(1, 2);
     }
 }
