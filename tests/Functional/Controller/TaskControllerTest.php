@@ -97,7 +97,9 @@ class TaskTest extends AbstractWebTestCaseClass
         $this->logUtils->login('admin');
         $crawler = $this->client->request('GET', '/tasks');
 
+        $user = $this->logUtils->getUser('admin')[1];
         $firstTask = $crawler->filter(".task")->first();
+        $firstTaskTitle = $crawler->filter(".task_update_link")->first()->text();
         $firstTaskId = explode('/', $firstTask->filter(".task_update_link")->attr('href'))[2];
         $removeTaskForm = $firstTask->selectButton("Supprimer")->form();
 

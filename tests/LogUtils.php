@@ -11,7 +11,7 @@ class LogUtils
 	const FIREWALL =  'main';
 	private $client;
 	private $entityManager;
-	private $session;
+	public $session;
 
 	public function __construct($client)
 	{
@@ -39,7 +39,7 @@ class LogUtils
 	}
 	
 
-	private function getUser($type)
+	public function getUser($type)
 	{
 		$credentials = ['username' => $type, 'password' => $type];
 		$user = $this->entityManager

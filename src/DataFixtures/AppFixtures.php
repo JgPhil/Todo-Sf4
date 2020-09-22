@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
 
         $users =[$user, $admin];
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 55; $i++) {
             $task = new Task;
             $task->setUser($users[array_rand($users)]);
             $task->setCreatedAt(new \DateTime());
