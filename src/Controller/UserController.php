@@ -56,7 +56,7 @@ class UserController extends AbstractController
      */
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        if ($this->getUser() === $user || $this->getUser() === 'ROLE_ADMIN') {
+        if ($this->getUser() === $user || $this->getUser()->getRole() === 'ROLE_ADMIN') {
             $form = $this->createForm(UserType::class, $user);
 
             $form->handleRequest($request);

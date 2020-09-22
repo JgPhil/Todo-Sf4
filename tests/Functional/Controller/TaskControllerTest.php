@@ -105,7 +105,7 @@ class TaskTest extends AbstractWebTestCaseClass
 
         $crawler = $this->client->followRedirect();
 
-        $successMessage = $crawler->filter('div.alert.alert-success')->text();
+        $successMessage = $crawler->filter('div.alert.alert-success')->text(null, true);
 
         $task = $this->entityManager
             ->getRepository(Task::class)
