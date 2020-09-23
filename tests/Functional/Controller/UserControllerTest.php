@@ -11,19 +11,13 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 class UserControllerTest extends AbstractWebTestCaseClass
 {
 
-    public function testcreatetUserRedirection()
-    {
-        $this->client->request('GET', '/login');
-        $crawler = $this->client->clickLink('Créer un utilisateur');
-        $button = $crawler->filter('button')->text();
-        $this->assertStringContainsString("Ajouter", $button);
-    }
 
     public function testCreateUserAction()
     {
         $this->client->request('GET', '/login');
         $this->logUtils->login('admin');
         $crawler = $this->client->clickLink('Créer un utilisateur');
+        $this->assertSelectorTextContains('h1', 'Création d\'un utilisateur');
         $createUserForm = $crawler->selectButton('Ajouter')->form();
         $createUserForm['user[username]'] = 'nom bidon';
         $createUserForm['user[password][first]']  = 'mot de passe bidon';

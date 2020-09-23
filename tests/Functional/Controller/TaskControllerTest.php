@@ -9,20 +9,12 @@ use App\Tests\AbstractWebTestCaseClass;
 
 class TaskTest extends AbstractWebTestCaseClass
 {
-    public function testcreateTaskRedirection()
-    {
-        $this->logUtils->login(self::USERS[rand(0, 1)]); // USERS defined in AbstractWebTestCaseClass
-        $this->client->request('GET', '/');
-        $crawler = $this->client->clickLink('Créer une nouvelle tâche');
-        $button = $crawler->filter('button')->text();
-        $this->assertStringContainsString("Ajouter", $button);
-    }
-
     public function testcreateTaskAction()
     {
         $this->logUtils->login(self::USERS[rand(0, 1)]); // USERS defined in AbstractWebTestCaseClass
         $this->client->request('GET', '/');
         $crawler = $this->client->clickLink('Créer une nouvelle tâche');
+        $this->assertSelectorTextContains('h1', 'Création d\'une tâche');
         $createTaskForm = $crawler->selectButton('Ajouter')->form();
         $createTaskForm['task[title]'] = 'titre bidon';
         $createTaskForm['task[content]'] = 'description bidon';
