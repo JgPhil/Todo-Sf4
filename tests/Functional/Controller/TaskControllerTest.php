@@ -7,7 +7,7 @@ use App\Entity\Task;
 use App\Tests\AbstractWebTestCaseClass;
 
 
-class TaskTest extends AbstractWebTestCaseClass
+class TaskControllerTest extends AbstractWebTestCaseClass
 {
     public function testcreateTaskAction()
     {
@@ -40,18 +40,19 @@ class TaskTest extends AbstractWebTestCaseClass
 
         if (!$crawler->filter('.thumbnail')->count()) {
             return;
-        } else {
-            //fetching the first task elements
+        } else { //fetching the first task elements
             $firstTaskTitle = $crawler->filter('.task_update_link')->first()->text();
             $firstTaskContent = $crawler->filter('.task_content')->first()->text();
-            $firstTaskUpdateLink = $crawler->filter('.task_update_link')->first()->attr('href');
+            $firstTaskShowLink = $crawler->filter('.task_update_link')->first()->attr('href');
 
-            $crawler = $this->client->request('GET', $firstTaskUpdateLink);
-            $this->assertResponseIsSuccessful();
+            $crawler = $this->client->request('GET', $firstTaskShowLink); //show
+            $editLink = $crawler->filter('.edit_task')->attr('href');
+            $crawler = $this->client->request('GET', $editLink);
+            $this->assertResponseIsSuccessful(); //edit
 
             // Fetching the elements on the update form yo compare with the ones above
             $titleTask = $crawler->filter('input[name="task[title]"]')->attr('value');
-            $contentTask = $crawler->filter('textarea[name="task[content]"]')->text();
+            $contentTask = substr($crawler->filter('textarea[name="task[content]"]')->text(), 0, 30);
 
             $this->assertEquals($firstTaskTitle, $titleTask);
             $this->assertEquals($firstTaskContent, $contentTask);
@@ -66,9 +67,12 @@ class TaskTest extends AbstractWebTestCaseClass
             return;
         } else {
             // Fetch the first Task on the list page
-            $firstTaskUpdateLink = $crawler->filter('.task_update_link')->first()->attr('href');
+            $firstTaskShowLink = $crawler->filter('.task_update_link')->first()->attr('href');
 
-            $crawler = $this->client->request('GET', $firstTaskUpdateLink);
+            $crawler = $this->client->request('GET', $firstTaskShowLink); //show
+            $editLink = $crawler->filter('.edit_task')->attr('href');
+            $crawler = $this->client->request('GET', $editLink);
+            $this->assertResponseIsSuccessful(); //edit
 
             $updateTaskForm = $crawler->selectButton("Modifier")->form();
             // Changing the form fields

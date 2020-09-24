@@ -16,7 +16,7 @@ class UserControllerTest extends AbstractWebTestCaseClass
     {
         $this->client->request('GET', '/login');
         $this->logUtils->login('admin');
-        $crawler = $this->client->clickLink('Créer un utilisateur');
+        $crawler = $this->client->request('GET', '/users/create');
         $this->assertSelectorTextContains('h1', 'Création d\'un utilisateur');
         $createUserForm = $crawler->selectButton('Ajouter')->form();
         $createUserForm['user[username]'] = 'nom bidon';

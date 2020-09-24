@@ -36,6 +36,14 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/tasks/{id}/show", name="task_show")
+     */
+    public function showAction($id)
+    {
+        return $this->render('task/show.html.twig',['task' => $this->getDoctrine()->getRepository('App:Task')->find($id)]);
+    }
+
+    /**
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request, EntityManagerInterface $em)

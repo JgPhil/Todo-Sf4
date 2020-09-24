@@ -39,7 +39,7 @@
 							{% endif %}
 						</h4>
 						<h4>
-							<a class="task_update_link" href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
+							<a class="task_update_link" href="{{ path('task_show', {'id' : task.id }) }}">{{ task.title }}</a>
 
 							{% if task.user == app.user or app.user.role == 'ROLE_ADMIN'%}
 								<svg width="1em" height="1em" viewbox="0 0 16 16" class="bi bi-unlock" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -52,8 +52,9 @@
 							{% endif %}
 
 						</h4>
+						<h6>Crée le {{ task.createdAt|date('Y-m-d') }} </h6>
 						{# added link class to fetch to id #}
-						<p class="task_content">{{ task.content }}</p>
+						<p class="task_content">{{  task.content|u.truncate(30) }}</p>
 					</div>
 					<div>
 						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
