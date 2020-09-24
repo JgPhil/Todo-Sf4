@@ -63,22 +63,30 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request)
     {
-        $form = $this->createForm(TaskType::class, $task);
+        if (
+            $task->getUser() === $this->getUser() ||
+            $this->getUser()->getRole() === 'ROLE_ADMIN'
+        ) {
+            $form = $this->createForm(TaskType::class, $task);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
+                $this->addFlash('success', 'La tâche a bien été modifiée.');
 
+                return $this->redirectToRoute('task_list');
+            }
+
+            return $this->render('task/edit.html.twig', [
+                'form' => $form->createView(),
+                'task' => $task,
+            ]);
+        } else {
+            $this->addFlash('error', 'Vous n\'avez pas la permission de modifier cette tâche');
             return $this->redirectToRoute('task_list');
         }
-
-        return $this->render('task/edit.html.twig', [
-            'form' => $form->createView(),
-            'task' => $task,
-        ]);
     }
 
     /**
@@ -86,7 +94,6 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task)
     {
-
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
@@ -103,8 +110,7 @@ class TaskController extends AbstractController
 
         if (
             $task->getUser() === $this->getUser() ||
-            $this->getUser()->getRole() === 'ROLE_ADMIN' ||
-            $task->getUser() === 'anonym'
+            $this->getUser()->getRole() === 'ROLE_ADMIN'
         ) {
             $em->remove($task);
             $em->flush();
