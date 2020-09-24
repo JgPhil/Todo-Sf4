@@ -20,6 +20,22 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/tasks/notDone", name="task_list_not_done")
+     */
+    public function listNotDoneTasksAction()
+    {
+        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findby(['isDone' => 0])]);
+    }
+
+    /**
+     * @Route("/tasks/done", name="task_list_done")
+     */
+    public function listDoneTasksAction()
+    {
+        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findby(['isDone' => 1])]);
+    }
+
+    /**
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request, EntityManagerInterface $em)
@@ -89,7 +105,7 @@ class TaskController extends AbstractController
             $task->getUser() === $this->getUser() ||
             $this->getUser()->getRole() === 'ROLE_ADMIN' ||
             $task->getUser() === 'anonym'
-        ) { 
+        ) {
             $em->remove($task);
             $em->flush();
 

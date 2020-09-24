@@ -9,8 +9,19 @@
 {% endblock %}
 
 {% block body %}
+
+	{% set current_path = app.request.get('_route') %}
+
 	<div class="row justify-content-center">
 		<a href="{{ path('task_create') }}" class="btn btn-info mb-2">Créer une tâche</a>
+		{% if current_path == "task_list_not_done"%}
+			<a href="{{ path('task_list_done') }}" class="btn btn-info mb-2">Voir les tâches terminées</a>
+		{% elseif current_path == "task_list_done"%}
+			<a href="{{ path('task_list_not_done') }}" class="btn btn-info mb-2">Voir les tâches non terminées</a>
+		{% else %}
+			<a href="{{ path('task_list_done') }}" class="btn btn-info mb-2">Voir les tâches terminées</a>
+			<a href="{{ path('task_list_not_done') }}" class="btn btn-info mb-2">Voir les tâches non terminées</a>
+		{% endif %}
 	</div>
 
 	<div class="row">
