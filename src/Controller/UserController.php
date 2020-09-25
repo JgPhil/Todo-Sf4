@@ -11,8 +11,12 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
-{
+{   
     /**
+     * listAction
+     *
+     * @return void
+     * 
      * @Route("/users", name="user_list")
      */
     public function listAction()
@@ -24,8 +28,14 @@ class UserController extends AbstractController
         }
         return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]);
     }
-
+   
     /**
+     * createAction
+     *
+     * @param  mixed $request
+     * @param  mixed $passwordEncoder
+     * @return void
+     * 
      * @Route("/users/create", name="user_create")
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -50,8 +60,16 @@ class UserController extends AbstractController
 
         return $this->render('user/create.html.twig', ['form' => $form->createView()]);
     }
-
+    
+   
     /**
+     * editAction
+     *
+     * @param  mixed $user
+     * @param  mixed $request
+     * @param  mixed $passwordEncoder
+     * @return void
+     * 
      * @Route("/users/{id}/edit", name="user_edit")
      */
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
