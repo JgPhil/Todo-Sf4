@@ -97,9 +97,8 @@ class TaskControllerTest extends AbstractWebTestCaseClass
         $firstTask = $crawler->filter(".task")->first();
         $firstTaskTitle = $crawler->filter(".task_update_link")->first()->text();
         $firstTaskId = explode('/', $firstTask->filter(".task_update_link")->attr('href'))[2];
-        $removeTaskForm = $firstTask->selectButton("Supprimer")->form();
 
-        $crawler = $this->client->submit($removeTaskForm);
+        $crawler = $this->client->request('DELETE',$firstTask->filter(".task_delete_btn")->attr('href'));
 
         $crawler = $this->client->followRedirect();
 

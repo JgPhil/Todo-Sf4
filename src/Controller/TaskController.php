@@ -40,7 +40,7 @@ class TaskController extends AbstractController
      */
     public function showAction($id)
     {
-        return $this->render('task/show.html.twig',['task' => $this->getDoctrine()->getRepository('App:Task')->find($id)]);
+        return $this->render('task/show.html.twig', ['task' => $this->getDoctrine()->getRepository('App:Task')->find($id)]);
     }
 
     /**
@@ -102,11 +102,18 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task)
     {
-        $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
+        if (
+            $task->getUser() === $this->getUser() ||
+            $this->getUser()->getRole() === 'ROLE_ADMIN'
+        ) {
+            $task->toggle(!$task->isDone());
+            $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
+            return $this->redirectToRoute('task_list');
+        }
+        $this->addFlash('error', 'Cette tâche a été créée par quelqu\'un d\'autre');
         return $this->redirectToRoute('task_list');
     }
 
