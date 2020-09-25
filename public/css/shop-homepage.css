@@ -8,6 +8,19 @@ body {
     padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+.header_btns {
+    margin: 2em 2em 3em 2em ;
+    padding: 20px 5px 30px 5px;
+    background-color: #e3f2fd;
+    box-shadow:7px 10px 20px lightgray ;
+}
+
+.navbar,
+.card {
+    background-color: #e3f2fd;
+}
+
+
 .slide-image {
     width: 100%;
 }
@@ -41,7 +54,11 @@ body {
 }
 
 .thumbnail {
-    padding: 0;
+    background-color:#e3f2fd;
+    padding: 5px 8px 5px 8px ;
+    margin: auto;
+    box-shadow:7px 10px 20px lightgray ;
+    min-height: 171px;
 }
 
 .thumbnail .caption-full {
@@ -52,3 +69,4 @@ body {
 footer {
     margin: 50px 0;
 }
+
