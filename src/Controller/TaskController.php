@@ -98,7 +98,7 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('task/task_form.html.twig', ['form' => $form->createView()]);
     }
  
     /**
@@ -128,7 +128,7 @@ class TaskController extends AbstractController
                 return $this->redirectToRoute('task_list');
             }
 
-            return $this->render('task/edit.html.twig', [
+            return $this->render('task/task_form.html.twig', [
                 'form' => $form->createView(),
                 'task' => $task,
             ]);

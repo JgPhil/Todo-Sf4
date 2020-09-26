@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% set current_path = app.request.get('_route') %}
+
+{% set title = current_path == 'task_edit' ? 'Modifier ' ~  task.title  : 'Créer une nouvelle tâche'%}
+{% set button = current_path == 'task_edit' ? 'Modifier ' : 'Créer'%}
 
 {% block header_title %}
-	<h1 class="text-center">Création d'une tâche</h1>
+	<h1 class="text-center">{{title}}</h1>
 {% endblock %}
 
 {% block header_img %}{% endblock %}
@@ -14,7 +18,7 @@
 	{{ form_start(form) }}
 	{{ form_row(form.title) }}
 	{{ form_row(form.content) }}
-	<button type="submit" class="btn btn-success float-right">Ajouter</button>
+	<button type="submit" class="btn btn-success float-right">{{button}}</button>
 	{{ form_end(form) }}
 	</div>	
 </div>

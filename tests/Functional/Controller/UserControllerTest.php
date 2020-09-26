@@ -18,7 +18,7 @@ class UserControllerTest extends AbstractWebTestCaseClass
         $this->logUtils->login('admin');
         $crawler = $this->client->request('GET', '/users/create');
         $this->assertSelectorTextContains('h1', 'Création d\'un utilisateur');
-        $createUserForm = $crawler->selectButton('Ajouter')->form();
+        $createUserForm = $crawler->selectButton('Créer')->form();
         $createUserForm['user[username]'] = 'nom bidon';
         $createUserForm['user[password][first]']  = 'mot de passe bidon';
         $createUserForm['user[password][second]']  = 'mot de passe bidon';
