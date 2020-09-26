@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% set current_path = app.request.get('_route') %}
+
+{% set title = current_path == 'user_edit' ? 'Modifier ' ~  user.username  : 'Création d\'un utilisateur'%}
+{% set button = current_path == 'user_edit' ? 'Modifier ' : 'Créer'%}
+
 {% block header_title %}
-	<h1 class="text-center">Création d'un utilisateur</h1>
+	<h1 class="text-center">{{ title }}</h1>
 {% endblock %}
 
 {% block header_img %}{% endblock %}
@@ -14,7 +19,7 @@
         {{ form_row(form.password) }}
         {{ form_row(form.email) }}
         {{ form_row(form.role) }}
-            <button type="submit" class="btn btn-success pull-right">Ajouter</button>
+            <button type="submit" class="btn btn-success pull-right">{{button}}</button>
         {{ form_end(form) }}
         </div>
         

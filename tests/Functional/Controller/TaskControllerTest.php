@@ -14,8 +14,8 @@ class TaskControllerTest extends AbstractWebTestCaseClass
         $this->logUtils->login(self::USERS[rand(0, 1)]); // USERS defined in AbstractWebTestCaseClass
         $this->client->request('GET', '/');
         $crawler = $this->client->clickLink('Créer une nouvelle tâche');
-        $this->assertSelectorTextContains('h1', 'Création d\'une tâche');
-        $createTaskForm = $crawler->selectButton('Ajouter')->form();
+        $this->assertSelectorTextContains('h1', 'Créer une nouvelle tâche');
+        $createTaskForm = $crawler->selectButton('Créer')->form();
         $createTaskForm['task[title]'] = 'titre bidon';
         $createTaskForm['task[content]'] = 'description bidon';
 
