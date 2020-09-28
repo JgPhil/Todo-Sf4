@@ -12,6 +12,27 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
+    
+    /**
+     * passwordEncoder
+     *
+     * @var mixed
+     */
+    private $passwordEncoder;
+    
+    /**
+     * __construct
+     *
+     * @param  mixed $passwordEncoder
+     * @return void
+     */
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+
+
     /**
      * listAction
      *
@@ -40,7 +61,7 @@ class UserController extends AbstractController
      * 
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function createAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -49,7 +70,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $password = $this->passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $em->persist($user);
@@ -71,7 +92,7 @@ class UserController extends AbstractController
      * 
      * @Route("/users/{id}/edit", name="user_edit")
      */
-    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function editAction(User $user, Request $request)
     {
         if ($this->getUser() === $user || $this->getUser()->getRole() === 'ROLE_ADMIN') {
             $form = $this->createForm(UserType::class, $user);
@@ -79,7 +100,7 @@ class UserController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $password = $passwordEncoder->encodePassword($user, $user->getPassword());
+                $password = $this->passwordEncoder->encodePassword($user, $user->getPassword());
                 $user->setPassword($password);
 
                 $this->getDoctrine()->getManager()->flush();

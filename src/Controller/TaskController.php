@@ -12,9 +12,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TaskController extends AbstractController
 {
-
+    
+    /**
+     * taskRepository
+     *
+     * @var mixed
+     */
     private $taskRepository;
-
+    
+    /**
+     * __construct
+     *
+     * @param  mixed $taskRepository
+     * @return void
+     */
     public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
