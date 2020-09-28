@@ -146,7 +146,6 @@ class TaskController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 $this->addFlash('success', 'La tâche a bien été modifiée.');
-
                 return $this->redirectToRoute('task_list');
             }
 

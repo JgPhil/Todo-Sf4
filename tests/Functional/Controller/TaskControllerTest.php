@@ -83,7 +83,6 @@ class TaskControllerTest extends AbstractWebTestCaseClass
         $updateTaskForm['task[content]'] = 'Description bidon ';
 
         $crawler = $this->client->submit($updateTaskForm);
-
         $crawler = $this->client->followRedirect();
 
         $this->assertSame(1, $crawler->filter('div.alert.alert-success')->count());
