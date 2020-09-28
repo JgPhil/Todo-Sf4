@@ -61,11 +61,11 @@ class TaskControllerTest extends AbstractWebTestCaseClass
         $this->assertEquals($firstTaskContent, $contentTask);
     }
 
-    public function testFormEditTask()
+    public function testEditAction()
     {
         $this->logUtils->login('admin');
         $crawler = $this->client->request('GET', '/tasks');
-        
+
         if (!$crawler->filter('.thumbnail')->count()) {
             return;
         }
@@ -89,8 +89,8 @@ class TaskControllerTest extends AbstractWebTestCaseClass
         $this->assertSame(1, $crawler->filter('div.alert.alert-success')->count());
     }
 
-
-    public function testRemoveTaskButton()
+    
+    public function testDeleteTaskButton()
     {
         $this->logUtils->login('admin');
         $crawler = $this->client->request('GET', '/tasks');
@@ -111,5 +111,42 @@ class TaskControllerTest extends AbstractWebTestCaseClass
 
         $this->assertStringContainsString('La tâche a bien été supprimée.', $successMessage);
         $this->assertEquals(null, $task);
+    }
+
+
+    public function testListNotDoneTasksAction()
+    {
+        $this->logUtils->login('admin');
+        $crawler = $this->client->request('GET', '/tasks');
+        $this->assertResponseIsSuccessful();
+
+        $crawler = $this->client->clickLink("Voir les tâches non terminées");
+        $this->assertSelectorTextContains('h1', "Liste des tâches non terminées");
+    }
+
+    public function testListDoneTasksAction()
+    {
+        $this->logUtils->login('admin');
+        $crawler = $this->client->request('GET', '/tasks');
+        $this->assertResponseIsSuccessful();
+
+        $crawler = $this->client->clickLink("Voir les tâches terminées");
+        $this->assertSelectorTextContains('h1', "Liste des tâches terminées");
+    }
+
+    public function testToggleTaskAction()
+    {
+        $this->logUtils->login('admin');
+        $crawler = $this->client->request('GET', '/tasks');
+        $this->assertResponseIsSuccessful();
+
+        if (!$crawler->filter('.thumbnail')->count()) {
+            return;
+        }
+        $firstTask = $crawler->filter(".task")->first();
+        $firstTaskToogleButtonText = $firstTask->filter('.toggle')->text(null, false);
+        $toggleButtonHref = $firstTask->filter("a")->attr('href');
+        $this->client->request('GET', $toggleButtonHref);
+        $this->assertNotEquals($crawler->filter(".task")->first()->text(null, false), $firstTaskToogleButtonText);
     }
 }

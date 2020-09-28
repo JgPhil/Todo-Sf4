@@ -48,7 +48,7 @@
 					<div class="row justify-content-around">
 						{% if task.user == app.user or app.user.role == 'ROLE_ADMIN'%}
 							<a href="{{ path('task_toggle', {'id' : task.id }) }}">
-								<button class="btn {{ task.isDone ? " btn-secondary" : " btn-info"}} btn-sm pull-right">
+								<button class="toggle btn {{ task.isDone ? " btn-secondary" : " btn-info"}} btn-sm pull-right">
 									{{ task.isDone ? "Marquer non terminée" : "Marquer comme faite" }}
 								</button>
 							</a>
