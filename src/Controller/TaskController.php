@@ -14,14 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
-    
+
     /**
      * taskRepository
      *
      * @var mixed
      */
     private $taskRepository;
-    
+
     /**
      * __construct
      *
@@ -47,7 +47,7 @@ class TaskController extends AbstractController
             'tasks' => $this->taskRepository->findAll()
         ]);
     }
- 
+
     /**
      * listNotDoneTasksAction
      *
@@ -93,7 +93,7 @@ class TaskController extends AbstractController
             'task' => $this->taskRepository->find($id)
         ]);
     }
-  
+
     /**
      * createAction
      *
@@ -122,7 +122,7 @@ class TaskController extends AbstractController
 
         return $this->render('task/task_form.html.twig', ['form' => $form->createView()]);
     }
- 
+
     /**
      * editAction
      *
@@ -153,12 +153,11 @@ class TaskController extends AbstractController
                 'form' => $form->createView(),
                 'task' => $task,
             ]);
-        } else {
-            $this->addFlash('error', 'Vous n\'avez pas la permission de modifier cette tâche');
-            return $this->redirectToRoute('task_list');
         }
+        $this->addFlash('error', 'Vous n\'avez pas la permission de modifier cette tâche');
+        return $this->redirectToRoute('task_list');
     }
- 
+
     /**
      * toggleTaskAction
      *
@@ -183,7 +182,7 @@ class TaskController extends AbstractController
         $this->addFlash('error', 'Cette tâche a été créée par quelqu\'un d\'autre');
         return $this->redirectToRoute('task_list');
     }
- 
+
     /**
      * deleteTaskAction
      *
