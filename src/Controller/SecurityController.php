@@ -7,8 +7,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
-{
+{  
     /**
+     * login
+     *
+     * @param  mixed $authenticationUtils
+     * @return void
+     * 
      * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils)
@@ -22,8 +27,11 @@ class SecurityController extends AbstractController
         ));
     }
 
-
     /**
+     * logout
+     *
+     * @return void
+     * 
      * @Route("/logout", name="logout")
      */
     public function logout()

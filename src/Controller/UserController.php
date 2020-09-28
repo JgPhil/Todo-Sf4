@@ -4,28 +4,40 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
     /**
+     * listAction
+     *
+     * @param  mixed $userRepository
+     * @return void
+     * 
      * @Route("/users", name="user_list")
      */
-    public function listAction()
+    public function listAction(UserRepository $userRepository)
     {
-        if ($this->getUser()->getRole() !== 'ROLE_ADMIN')
-        {
+        if ($this->getUser()->getRole() !== 'ROLE_ADMIN') {
             $this->addFlash('error', 'Veuillez vous connecter');
             return $this->redirectToRoute('login');
         }
-        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]);
+        return $this->render('user/list.html.twig', [
+            'users' => $userRepository->findAll()
+        ]);
     }
 
     /**
+     * createAction
+     *
+     * @param  mixed $request
+     * @param  mixed $passwordEncoder
+     * @return void
+     * 
      * @Route("/users/create", name="user_create")
      */
     public function createAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -44,14 +56,19 @@ class UserController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
-
             return $this->redirectToRoute('user_list');
         }
-
         return $this->render('user/user_form.html.twig', ['form' => $form->createView()]);
     }
-
+ 
     /**
+     * editAction
+     *
+     * @param  mixed $user
+     * @param  mixed $request
+     * @param  mixed $passwordEncoder
+     * @return void
+     * 
      * @Route("/users/{id}/edit", name="user_edit")
      */
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
@@ -68,15 +85,11 @@ class UserController extends AbstractController
                 $this->getDoctrine()->getManager()->flush();
 
                 $this->addFlash('success', "L'utilisateur a bien été modifié");
-
                 return $this->redirectToRoute('user_list');
             }
-
             return $this->render('user/user_form.html.twig', ['form' => $form->createView(), 'user' => $user]);
-        } else {
-            $this->addFlash('error', ' Vous n\'avez pas accès à ce profil');
-
-            return $this->redirectToRoute('user_list');
         }
+        $this->addFlash('error', ' Vous n\'avez pas accès à ce profil');
+        return $this->redirectToRoute('user_list');
     }
 }
