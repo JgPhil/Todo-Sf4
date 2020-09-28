@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
-{
+{  
     /**
      * login
      *
@@ -27,11 +27,11 @@ class SecurityController extends AbstractController
         ));
     }
 
-  
     /**
      * logout
      *
      * @return void
+     * 
      * @Route("/logout", name="logout")
      */
     public function logout()

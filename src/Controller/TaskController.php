@@ -13,10 +13,30 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 class TaskController extends AbstractController
-{  
+{
+    
+    /**
+     * taskRepository
+     *
+     * @var mixed
+     */
+    private $taskRepository;
+    
+    /**
+     * __construct
+     *
+     * @param  mixed $taskRepository
+     * @return void
+     */
+    public function __construct(TaskRepository $taskRepository)
+    {
+        $this->taskRepository = $taskRepository;
+    }
+
     /**
      * listAction
      *
+     * @param  mixed $taskRepository
      * @return void
      * 
      * @Route("/tasks", name="task_list")
@@ -24,13 +44,14 @@ class TaskController extends AbstractController
     public function listAction()
     {
         return $this->render('task/list.html.twig', [
-            'tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()
+            'tasks' => $this->taskRepository->findAll()
         ]);
     }
  
     /**
      * listNotDoneTasksAction
      *
+     * @param  mixed $taskRepository
      * @return void
      * 
      * @Route("/tasks/notDone", name="task_list_not_done")
@@ -38,13 +59,14 @@ class TaskController extends AbstractController
     public function listNotDoneTasksAction()
     {
         return $this->render('task/list.html.twig', [
-            'tasks' => $this->getDoctrine()->getRepository('App:Task')->findby(['isDone' => 0])
+            'tasks' => $this->taskRepository->findby(['isDone' => 0])
         ]);
     }
 
     /**
      * listDoneTasksAction
      *
+     * @param  mixed $taskRepository
      * @return void
      * 
      * @Route("/tasks/done", name="task_list_done")
@@ -52,15 +74,15 @@ class TaskController extends AbstractController
     public function listDoneTasksAction()
     {
         return $this->render('task/list.html.twig', [
-            'tasks' => $this->getDoctrine()->getRepository('App:Task')->findby(['isDone' => 1])
+            'tasks' => $this->taskRepository->findby(['isDone' => 1])
         ]);
     }
 
     /**
      * showAction
      *
+     * @param  mixed $taskRepository
      * @param  mixed $id
-     * 
      * @return void
      * 
      * @Route("/tasks/{id}/show", name="task_show")
@@ -68,10 +90,10 @@ class TaskController extends AbstractController
     public function showAction($id)
     {
         return $this->render('task/show.html.twig', [
-            'task' => $this->getDoctrine()->getRepository('App:Task')->find($id)
+            'task' => $this->taskRepository->find($id)
         ]);
     }
-     
+  
     /**
      * createAction
      *
@@ -137,7 +159,7 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
     }
-
+ 
     /**
      * toggleTaskAction
      *
@@ -162,7 +184,7 @@ class TaskController extends AbstractController
         $this->addFlash('error', 'Cette tâche a été créée par quelqu\'un d\'autre');
         return $this->redirectToRoute('task_list');
     }
-  
+ 
     /**
      * deleteTaskAction
      *

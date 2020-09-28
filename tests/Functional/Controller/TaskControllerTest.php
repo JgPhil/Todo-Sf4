@@ -4,11 +4,13 @@ namespace App\Tests\Functional\Controller;
 
 
 use App\Entity\Task;
+use App\Repository\TaskRepository;
 use App\Tests\AbstractWebTestCaseClass;
 
 
 class TaskControllerTest extends AbstractWebTestCaseClass
 {
+
     public function testcreateTaskAction()
     {
         $this->logUtils->login(self::USERS[rand(0, 1)]); // USERS defined in AbstractWebTestCaseClass
