@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200917085557 extends AbstractMigration
+final class Version20200912222222 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -19,23 +19,8 @@ final class Version20200917085557 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
-        // crreation of the application tables
-        $this->addSql('CREATE TABLE task (
-            id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            title VARCHAR(100),
-            content VARCHAR(255),
-            is_done SMALLINT,
-            created_at DATETIME
-        )');
-        $this->addSql('CREATE TABLE user (
-            id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-            username VARCHAR(100),
-            password VARCHAR(255),
-            email VARCHAR(100)
-        )');
-
         //add the relation between tasks and users
-        $this->addSql('ALTER TABLE task ADD user_id INT NOT NULL');
+        $this->addSql('ALTER TABLE task ADD user_id INT');
         $this->addSql('ALTER TABLE task ADD CONSTRAINT FK_527EDB25A76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
         $this->addSql('CREATE INDEX IDX_527EDB25A76ED395 ON task (user_id)');
     }

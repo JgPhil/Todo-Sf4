@@ -9,8 +9,3 @@ users:
     password: "admin"
     email: "admin@todo.fr"
     role: "ROLE_ADMIN"
-  anonym:
-    username: "anonym"
-    password: "anonym"
-    email: "anonym@todo.fr"
-    role: "ROLE_USER"

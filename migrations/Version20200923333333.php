@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200929123717 extends AbstractMigration
+final class Version20200923333333 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -18,7 +18,10 @@ final class Version20200929123717 extends AbstractMigration
     }
 
     public function up(Schema $schema): void
-    {
+    {   
+        //role field 
+        $this->addSql('ALTER TABLE user ADD role VARCHAR(255) NOT NULL');
+
         $anonymousUser = array(
             'username' => 'anonym',
             'password' => password_hash('anonym', PASSWORD_BCRYPT),
