@@ -1,0 +1,277 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="SecurityController.php" path="/Controller">
+    <totals>
+      <lines total="41" comments="15" code="26" executable="6" executed="5" percent="83.33"/>
+      <methods count="2" tested="1" percent="50.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="App\Controller\SecurityController" start="9" executable="6" executed="5" crap="2.02">
+      <package full="" name="" sub="" category=""/>
+      <namespace name="App\Controller"/>
+      <method name="login" signature="login(AuthenticationUtils $authenticationUtils)" start="19" end="28" crap="1" executable="5" executed="5" coverage="100"/>
+      <method name="logout" signature="logout()" start="37" end="39" crap="2.00" executable="1" executed="0" coverage="0"/>
+    </class>
+    <coverage>
+      <line nr="21">
+        <covered by="App\Tests\Functional\Controller\SecurityControllerTest::testLogout"/>
+        <covered by="App\Tests\Functional\Controller\UserControllerTest::testCreateUserAction"/>
+        <covered by="App\Tests\Unit\Controller\SecurityControllerTest::testAccessLogin"/>
+      </line>
+      <line nr="22">
+        <covered by="App\Tests\Functional\Controller\SecurityControllerTest::testLogout"/>
+        <covered by="App\Tests\Functional\Controller\UserControllerTest::testCreateUserAction"/>
+        <covered by="App\Tests\Unit\Controller\SecurityControllerTest::testAccessLogin"/>
+      </line>
+      <line nr="24">
+        <covered by="App\Tests\Functional\Controller\SecurityControllerTest::testLogout"/>
+        <covered by="App\Tests\Functional\Controller\UserControllerTest::testCreateUserAction"/>
+        <covered by="App\Tests\Unit\Controller\SecurityControllerTest::testAccessLogin"/>
+      </line>
+      <line nr="25">
+        <covered by="App\Tests\Functional\Controller\SecurityControllerTest::testLogout"/>
+        <covered by="App\Tests\Functional\Controller\UserControllerTest::testCreateUserAction"/>
+        <covered by="App\Tests\Unit\Controller\SecurityControllerTest::testAccessLogin"/>
+      </line>
+      <line nr="26">
+        <covered by="App\Tests\Functional\Controller\SecurityControllerTest::testLogout"/>
+        <covered by="App\Tests\Functional\Controller\UserControllerTest::testCreateUserAction"/>
+        <covered by="App\Tests\Unit\Controller\SecurityControllerTest::testAccessLogin"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">App</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Controller</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Symfony</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Component</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Routing</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Annotation</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Route</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Symfony</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Bundle</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">FrameworkBundle</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Controller</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">AbstractController</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Symfony</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Component</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Security</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Http</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">Authentication</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">AuthenticationUtils</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8"/>
+      <line no="9">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SecurityController</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXTENDS">extends</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AbstractController</token>
+      </line>
+      <line no="10">
+        <token name="T_OPEN_CURLY">{</token>
+        <token name="T_WHITESPACE">  </token>
+      </line>
+      <line no="11">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="12">
+        <token name="T_DOC_COMMENT">     * login</token>
+      </line>
+      <line no="13">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="14">
+        <token name="T_DOC_COMMENT">     * @param  mixed $authenticationUtils</token>
+      </line>
+      <line no="15">
+        <token name="T_DOC_COMMENT">     * @return void</token>
+      </line>
+      <line no="16">
+        <token name="T_DOC_COMMENT">     * </token>
+      </line>
+      <line no="17">
+        <token name="T_DOC_COMMENT">     * @Route("/login", name="login")</token>
+      </line>
+      <line no="18">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="19">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">login</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">AuthenticationUtils</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$authenticationUtils</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="20">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="21">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$error</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$authenticationUtils</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getLastAuthenticationError</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="22">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$lastUsername</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$authenticationUtils</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">getLastUsername</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="23"/>
+      <line no="24">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">render</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'security/login.html.twig'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="25">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'last_username'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$lastUsername</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="26">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'error'</token>
+        <token name="T_WHITESPACE">         </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$error</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="27">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="28">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="29"/>
+      <line no="30">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT">     * logout</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT">     *</token>
+      </line>
+      <line no="33">
+        <token name="T_DOC_COMMENT">     * @return void</token>
+      </line>
+      <line no="34">
+        <token name="T_DOC_COMMENT">     * </token>
+      </line>
+      <line no="35">
+        <token name="T_DOC_COMMENT">     * @Route("/logout", name="logout")</token>
+      </line>
+      <line no="36">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="37">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">logout</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="38">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="39">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="40">
+        <token name="T_WHITESPACE">    </token>
+      </line>
+      <line no="41">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="42"/>
+    </source>
+  </file>
+</phpunit>
