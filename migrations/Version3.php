@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200923333333 extends AbstractMigration
+final class Version3 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -19,9 +19,10 @@ final class Version20200923333333 extends AbstractMigration
 
     public function up(Schema $schema): void
     {   
-        //role field 
+        //add a role field 
         $this->addSql('ALTER TABLE user ADD role VARCHAR(255) NOT NULL');
 
+        //parameters used in the next script
         $anonymousUser = array(
             'username' => 'anonym',
             'password' => password_hash('anonym', PASSWORD_BCRYPT),
@@ -32,11 +33,13 @@ final class Version20200923333333 extends AbstractMigration
         //creation of the anonymous user
         $this->addSql('INSERT INTO user (username, password, email, role ) VALUES(:username, :password, :email, :role)', $anonymousUser);
         
-        //bind the anonymous tasks
+        //bind the anonymous tasks with the anonym user
         $this->addSql('UPDATE task SET user_id = (
             SELECT id FROM user WHERE username = "anonym"
         ) WHERE user_id IS null');
     }
+
+    
 
     public function down(Schema $schema): void
     {

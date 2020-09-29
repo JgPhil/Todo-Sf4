@@ -11,7 +11,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200901111111 extends AbstractMigration
+final class Version1 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -35,7 +35,7 @@ final class Version20200901111111 extends AbstractMigration
             email VARCHAR(100)
         )');
 
-            // generate fake tasks on the initial application with no user binded
+            // generate tasks  with no user binded
 
         for ($i = 1; $i < 21; $i ++)
         {
