@@ -85,7 +85,7 @@ Launch the creation of the database:</p>
 <pre><code>php bin/console doctrine:migrations:migrate
 </code></pre>
 <p>Finally, load the initial dataset into the database :</p>
-<pre><code>php bin/console doctrine:fixtures:load
+<pre><code>php bin/console doctrine:fixtures:load --append
 </code></pre>
 
 <h3>Run the web application</h3>
