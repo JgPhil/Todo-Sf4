@@ -24,7 +24,7 @@ final class Version1 extends AbstractMigration
         $this->addSql('CREATE TABLE task (
             id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
             title VARCHAR(100),
-            content VARCHAR(255),
+            content VARCHAR(10000),
             is_done SMALLINT,
             created_at DATETIME
         )');
