@@ -20,6 +20,6 @@ class UserControllerTest extends AbstractWebTestCaseClass
     public function testAccessCreateActionPageAnonymous()
     {
         $this->client->request('GET', '/users/create');
-        $this->assertResponseIsSuccessful();
+        $this->assertResponseRedirects();
     }
 }
