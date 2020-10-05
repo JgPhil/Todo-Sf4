@@ -39,7 +39,7 @@ class TaskController extends AbstractController
      * @param  mixed $taskRepository
      * @return void
      * 
-     * @Route("/tasks", name="task_list")
+     * @Route("/tasks", name="task_list", methods={"GET"})
      */
     public function listAction()
     {
@@ -54,7 +54,7 @@ class TaskController extends AbstractController
      * @param  mixed $taskRepository
      * @return void
      * 
-     * @Route("/tasks/notDone", name="task_list_not_done")
+     * @Route("/tasks/notDone", name="task_list_not_done", methods={"GET"})
      */
     public function listNotDoneTasksAction()
     {
@@ -69,7 +69,7 @@ class TaskController extends AbstractController
      * @param  mixed $taskRepository
      * @return void
      * 
-     * @Route("/tasks/done", name="task_list_done")
+     * @Route("/tasks/done", name="task_list_done", methods={"GET"})
      */
     public function listDoneTasksAction()
     {
@@ -85,7 +85,7 @@ class TaskController extends AbstractController
      * @param  mixed $id
      * @return void
      * 
-     * @Route("/tasks/{id}/show", name="task_show")
+     * @Route("/tasks/{id}/show", name="task_show", methods={"GET"})
      */
     public function showAction($id)
     {
@@ -101,7 +101,7 @@ class TaskController extends AbstractController
      * @param  mixed $em
      * @return void
      * 
-     * @Route("/tasks/create", name="task_create")
+     * @Route("/tasks/create", name="task_create", methods={"GET", "POST"})
      */
     public function createAction(Request $request, EntityManagerInterface $em)
     {
@@ -130,7 +130,7 @@ class TaskController extends AbstractController
      * @param  mixed $request
      * @return void
      * 
-     * @Route("/tasks/{id}/edit", name="task_edit")
+     * @Route("/tasks/{id}/edit", name="task_edit", methods={"GET", "POST"})
      */
     public function editAction(Task $task, Request $request)
     {
@@ -164,7 +164,7 @@ class TaskController extends AbstractController
      * @param  mixed $task
      * @return void
      * 
-     * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @Route("/tasks/{id}/toggle", name="task_toggle", methods={"GET", "POST"})
      */
     public function toggleTaskAction(Task $task)
     {
@@ -190,7 +190,7 @@ class TaskController extends AbstractController
      * @param  mixed $em
      * @return void
      * 
-     * @Route("/tasks/{id}/delete", name="task_delete")
+     * @Route("/tasks/{id}/delete", name="task_delete", methods={"GET", "DELETE"})
      */
     public function deleteTaskAction(Task $task, EntityManagerInterface $em)
     {
