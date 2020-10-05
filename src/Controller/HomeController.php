@@ -12,7 +12,7 @@ class HomeController extends AbstractController
      *
      * @return void
      * 
-     * @Route("/", name="homepage")
+     * @Route("/", name="homepage", methods={"GET"})
      */
     public function indexAction()
     {

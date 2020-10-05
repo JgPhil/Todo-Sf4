@@ -116,20 +116,20 @@ class TaskControllerTest extends AbstractWebTestCaseClass
     public function testListNotDoneTasksAction()
     {
         $this->logUtils->login('admin');
-        $crawler = $this->client->request('GET', '/tasks');
+        $this->client->request('GET', '/tasks');
         $this->assertResponseIsSuccessful();
 
-        $crawler = $this->client->clickLink("Voir les tâches non terminées");
+        $this->client->clickLink("Voir les tâches non terminées");
         $this->assertSelectorTextContains('h1', "Liste des tâches non terminées");
     }
 
     public function testListDoneTasksAction()
     {
         $this->logUtils->login('admin');
-        $crawler = $this->client->request('GET', '/tasks');
+        $this->client->request('GET', '/tasks');
         $this->assertResponseIsSuccessful();
 
-        $crawler = $this->client->clickLink("Voir les tâches terminées");
+        $this->client->clickLink("Voir les tâches terminées");
         $this->assertSelectorTextContains('h1', "Liste des tâches terminées");
     }
 

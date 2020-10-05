@@ -14,7 +14,7 @@ class SecurityController extends AbstractController
      * @param  mixed $authenticationUtils
      * @return void
      * 
-     * @Route("/login", name="login")
+     * @Route("/login", name="login", methods={"GET", "POST"})
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
