@@ -5,6 +5,7 @@ namespace App\Tests\Functional\Controller;
 
 use App\Entity\Task;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Tests\AbstractWebTestCaseClass;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
@@ -44,20 +45,25 @@ class UserControllerTest extends AbstractWebTestCaseClass
         $crawler = $this->client->request('GET', '/users');
         $this->assertSelectorTextContains('h1', 'Liste');
 
+        // Select the original user object
+        $initialUser = $this->entityManager
+            ->getRepository(User::class)
+            ->findOneBy(['username' => $crawler->filter('.username')->text()]);
+        
         $crawler = $this->client->clickLink('Edit')->first();
 
         $editUserForm = $crawler->selectButton('Modifier')->form();
-
+        //change the values
         $editUserForm['user[username]'] = 'user_updated';
         $editUserForm['user[password][first]']  = 'user';
         $editUserForm['user[password][second]']  = 'user';
         $editUserForm['user[email]'] = 'user_updated@todo.fr';
         $editUserForm['user[role]'] = 'ROLE_ADMIN';
-
+        
         $crawler = $this->client->submit($editUserForm);
 
         $crawler = $this->client->followRedirect();
-
+        // fetch the user to see if it has been updated
         $user = $this->entityManager
             ->getRepository(User::class)
             ->findOneBy(['username' => 'user_updated']);
@@ -65,9 +71,9 @@ class UserControllerTest extends AbstractWebTestCaseClass
         $this->assertEquals('user_updated', $user->getUsername());
         $this->assertEquals('user_updated@todo.fr', $user->getEmail());
 
-        //Reverse to the original credentials
-        $user->setUsername('user');
-        $user->setEmail('user@todo.fr');
+        //Reverse to the original values
+        $user->setUsername($initialUser->getUsername());
+        $user->setEmail($initialUser->getEmail());
         $user->setRole('ROLE_USER');
         $this->entityManager->flush();
     }
