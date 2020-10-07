@@ -19,7 +19,6 @@ class HomeControllerTest extends AbstractWebTestCaseClass
 
     public function testAccessTaskListPageAnonymous()
     {
-        $this->logUtils->login('');
         $this->client->request('GET', '/');
         $this->assertResponseStatusCodeSame(302);
     }
