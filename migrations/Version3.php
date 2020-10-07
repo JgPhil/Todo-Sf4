@@ -33,6 +33,9 @@ final class Version3 extends AbstractMigration
         //creation of the anonymous user
         $this->addSql('INSERT INTO user (username, password, email, role ) VALUES(:username, :password, :email, :role)', $anonymousUser);
         
+        // set the role on the actual user
+        $this->addSql('UPDATE user SET role = "ROLE_USER"');
+
         //bind the anonymous tasks with the anonym user
         $this->addSql('UPDATE task SET user_id = (
             SELECT id FROM user WHERE username = "anonym"
