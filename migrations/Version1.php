@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Entity\User;
 use DateTime;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -51,6 +52,16 @@ final class Version1 extends AbstractMigration
             $this->addSql('INSERT INTO task VALUES(:id, :title, :content, :is_done, :created_at)', $task);
         }
 
+        //generate a user
+
+        $user = array(
+            'id' => null,
+            'username' => 'phil',
+            'password' => password_hash('phil', PASSWORD_BCRYPT),
+            'email' => 'phil@gmail.com'
+        );
+
+        $this->addSql('INSERT INTO user VALUES(:id, :username, :password, :email)', $user);
     }
 
     public function down(Schema $schema) : void
