@@ -33,13 +33,6 @@ class AppFixtures extends Fixture
                 $manager->persist($task);
             }
 
-            // Bind Anonymous tasks
-           /*  $anonymousTasks = $manager->getRepository(Task::class)->findBy(['user' => null]);
-            foreach ($anonymousTasks as $anonymousTask) {
-                $anonymousTask->setUser(
-                    $manager->getRepository(User::class)->findBy(['username' => "anonym"])
-                );
-            } */
             $manager->flush();
         }
     }
