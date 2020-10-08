@@ -12,14 +12,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
-    
+
     /**
      * passwordEncoder
      *
      * @var mixed
      */
     private $passwordEncoder;
-    
+
     /**
      * __construct
      *
@@ -51,7 +51,7 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll()
         ]);
     }
-   
+
     /**
      * createAction
      *
@@ -63,6 +63,10 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request)
     {
+        if ($this->getUser()->getRole() !== 'ROLE_ADMIN') {
+            $this->addFlash('error', 'Vous ne pouvez pas accéder à cette page');
+            return $this->redirectToRoute('homepage');
+        }
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -81,7 +85,7 @@ class UserController extends AbstractController
         }
         return $this->render('user/user_form.html.twig', ['form' => $form->createView()]);
     }
- 
+
     /**
      * editAction
      *

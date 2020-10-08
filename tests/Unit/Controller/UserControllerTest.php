@@ -10,11 +10,10 @@ class UserControllerTest extends AbstractWebTestCaseClass
 
     public function testAccessCreateActionPageLogged()
     {
-        foreach (self::USERS as $type) {
-            $this->logUtils->login($type);
-            $this->client->request('GET', '/users/create');
-            $this->assertResponseIsSuccessful();
-        }
+
+        $this->logUtils->login('admin');
+        $this->client->request('GET', '/users/create');
+        $this->assertResponseIsSuccessful();
     }
 
     public function testAccessCreateActionPageAnonymous()
