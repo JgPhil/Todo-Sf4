@@ -9,3 +9,7 @@ php bin/console doctrine:migrations:migrate 'DoctrineMigrations\Version2'
 php bin/console doctrine:migrations:migrate 'DoctrineMigrations\Version3'
 
 php bin/console doctrine:fixtures:load --append
+
+mysql -u root -p todo-and-co
+
+
